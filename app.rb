@@ -88,10 +88,9 @@ __END__
     .petition-form input[type=submit]:focus {
       outline: 3px solid #CF0975;
     }
-
   </style>
-  <title>Embed Welsh Assembly e-Petitions</title>
 
+  <title>Embed Welsh Assembly e-Petitions</title>
 </head>
 <body>
   <h1>Embed a Welsh Assembly e-Petition on your website</h1>
@@ -102,17 +101,17 @@ __END__
       following code to your web page:
     </p>
 
-    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>' width='320' height='400' style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
+    <textarea autofocus readonly rows='4' cols='60' id="widgetbox" class='widgetbox'><iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>' width='320' height='400' style="border:none; height:400px;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
     </textarea>
 
     <p>
       The widget will look like this:
     </p>
 
-    <iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>'
+    <iframe id="widget-demo" src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>'
             width='320'
             height='400'
-            style="border:none;"
+            style="border:none; height:400px;"
             frameborder='0'
             marginwidth='0'
             marginheight='0'></iframe>
@@ -130,6 +129,42 @@ __END__
       </div>
     </form>
   <% end %>
+
+  <script type="text/javascript">
+    function getDocHeight(doc) {
+        doc = doc || document;
+        // stackoverflow.com/questions/1145850/
+        var body = doc.body, html = doc.documentElement;
+        var height = Math.max( body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight );
+        return height;
+    }
+
+    function setIframeHeight(id) {
+        var ifrm = document.getElementById(id);
+        var doc = ifrm.contentDocument? ifrm.contentDocument:
+            ifrm.contentWindow.document;
+        ifrm.style.visibility = 'hidden';
+        ifrm.style.height = "10px"; // reset to minimal height
+        // IE opt. for bing/msn needs a bit added or scrollbar appears
+        var height = getDocHeight( doc ) + 4;
+        ifrm.style.height = height + "px";
+        ifrm.style.visibility = 'visible';
+        return height;
+    }
+
+    function setIframeCodeHeight(height) {
+      var code = document.getElementById('widgetbox').innerHTML;
+      var res = code.replace(/height:\d+/g, "height:" + height);
+      document.getElementById('widgetbox').innerHTML = res;
+    }
+
+    // Adjust the Id accordingly
+    document.getElementById('widget-demo').onload = function() {
+      var height = setIframeHeight(this.id);
+      setIframeCodeHeight(height);
+    }
+  </script>
 </body>
 </html>
 
