@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require 'sinatra'
 require 'open-uri'
 
@@ -8,7 +10,12 @@ get '/' do
   @petition_url = params['petition_url']
 
   if @petition_url && !@petition_url.empty?
-    @petition_data = scrape_petition(@petition_url)
+    begin
+      @petition_data = scrape_petition(@petition_url)
+    rescue Errno::ENOENT
+      @petition_url = nil
+      @petition_data = nil
+    end
   end
 
   erb :index
@@ -23,11 +30,12 @@ get '/widget' do
 end
 
 def scrape_petition(petition_url)
-  page = Nokogiri::HTML(open(petition_url))
+  page = Nokogiri::HTML(open(petition_url), nil, Encoding::UTF_8.to_s)
   {
     :title => page.css('.pageTitle').text,
-    :body => page.css('.petitionInfoText').text,
-    :signatures => page.css('.countSignatureHeading').text
+    # :body => page.css('.petitionInfoText').text,
+    :signatures => page.css('.countSignatureHeading').text,
+    :button_text => page.at('.signPetitionButton')['value']
   }
 end
 
@@ -245,7 +253,7 @@ __END__
 
     <p>
       <a href="<%= @petition_url %>" target="_parent" class="petition petition-url">
-        Sign this petition
+        <%= @petition_data[:button_text] %>
       </a>
     </div>
   </div>
