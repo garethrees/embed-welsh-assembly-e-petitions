@@ -4,6 +4,7 @@ require 'open-uri'
 enable :inline_templates
 
 get '/' do
+  set_base_url
   @petition_url = params['petition_url']
 
   if @petition_url && !@petition_url.empty?
@@ -14,6 +15,7 @@ get '/' do
 end
 
 get '/widget' do
+  set_base_url
   @petition_url = params['petition_url']
   @petition_data = scrape_petition(@petition_url)
   erb :widget
@@ -26,6 +28,10 @@ def scrape_petition(petition_url)
     :body => page.css('.petitionInfoText').text,
     :signatures => page.css('.countSignatureHeading').text
   }
+end
+
+def set_base_url
+  @base_url = ENV['BASE_URL']
 end
 
 __END__
@@ -95,14 +101,14 @@ __END__
       following code to your web page:
     </p>
 
-    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='/widget?petition_url=<%= @petition_url %>' width='320' height='400' onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';"> style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
+    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>' width='320' height='400' onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';"> style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
     </textarea>
 
     <p>
       The widget will look like this:
     </p>
 
-    <iframe src='/widget?petition_url=<%= @petition_url %>'
+    <iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>'
             width='320'
             height='400'
             onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';">
