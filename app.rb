@@ -44,7 +44,7 @@ __END__
       background-color: #eee;
       font-family: monospace;
       font-size: 1em;
-      height: 100px;
+      height: 120px;
       padding: 0.8em 1em;
       width: 80%;
     }
@@ -95,12 +95,21 @@ __END__
       following code to your web page:
     </p>
 
-    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='/widget?petition_url=<%= @petition_url %>' width='320' height='215' frameborder='0' marginwidth='0' marginheight='0'></iframe></textarea>
-  <p>
-    The widget will look like this:
-  </p>
+    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='/widget?petition_url=<%= @petition_url %>' width='320' height='400' onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';"> style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
+    </textarea>
 
-  <iframe src='/widget?petition_url=<%= @petition_url %>' width='320' height='600' frameborder='0' marginwidth='0' marginheight='0'></iframe>
+    <p>
+      The widget will look like this:
+    </p>
+
+    <iframe src='/widget?petition_url=<%= @petition_url %>'
+            width='320'
+            height='400'
+            onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';">
+            style="border:none;"
+            frameborder='0'
+            marginwidth='0'
+            marginheight='0'></iframe>
 
     <p>
       <a href="/">Start again →</a>
