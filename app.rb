@@ -16,6 +16,7 @@ end
 
 get '/widget' do
   set_base_url
+  headers "X-Frame-Options" => ''
   @petition_url = params['petition_url']
   @petition_data = scrape_petition(@petition_url)
   erb :widget
