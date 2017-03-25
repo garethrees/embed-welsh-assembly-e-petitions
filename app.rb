@@ -102,7 +102,7 @@ __END__
       following code to your web page:
     </p>
 
-    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>' width='320' height='400' onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';"> style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
+    <textarea autofocus readonly rows='4' cols='60' class='widgetbox'><iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>' width='320' height='400' onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';" style="border:none;" frameborder='0' marginwidth='0' marginheight='0'></iframe>
     </textarea>
 
     <p>
@@ -112,7 +112,7 @@ __END__
     <iframe src='<%= @base_url %>/widget?petition_url=<%= @petition_url %>'
             width='320'
             height='400'
-            onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';">
+            onload="this.style.height=this.contentDocument.body.scrollHeight +'px';this.style.border='none';"
             style="border:none;"
             frameborder='0'
             marginwidth='0'
