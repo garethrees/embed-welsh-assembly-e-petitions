@@ -101,6 +101,10 @@ __END__
   </p>
 
   <iframe src='/widget?petition_url=<%= @petition_url %>' width='320' height='600' frameborder='0' marginwidth='0' marginheight='0'></iframe>
+
+    <p>
+      <a href="/">Start again →</a>
+    </p>
    <% else %>
     <form class="petition-form" action="/">
       <div class="petition-form form-field">
