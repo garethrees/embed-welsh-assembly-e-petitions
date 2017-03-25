@@ -87,7 +87,7 @@ __END__
 
 </head>
 <body>
-  <h1>Embed a Welsh Assembly petition in your website</h1>
+  <h1>Embed a Welsh Assembly e-Petition on your website</h1>
 
   <% if @petition_data %>
     <p>
