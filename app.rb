@@ -180,7 +180,8 @@ __END__
   <meta http-equiv="imagetoolbar" content="false" />
 
   <style type="text/css" media="screen">
-    body {
+    .widget {
+      background-color: #fff;
       border: 6px solid #50626F;
       color: #172934;
       font:1em/1.62 sans-serif;
@@ -188,7 +189,6 @@ __END__
       max-width:40em;
       padding:0 .62em;
     }
-
     .petition-title {
       font-size: 16px;
       line-height:1.2;
